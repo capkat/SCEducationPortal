@@ -1,0 +1,35 @@
+﻿@model List<SCEducationPortal.Business.Commons.Models.EducationModels.EducationResponse>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categories = (List<SCEducationPortal.Business.Commons.Models.CategoryModels.CategoryListResponse>)ViewBag.CategoryList;
+}
+
+
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("~/Views/Common/CategoryList.cshtml", categories)
+        </div>
+
+        <div class="col-md-9">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-12">
+                        <h2>@item.Title</h2>
+                        <p>@item.Description</p>
+                        <p>
+                            @Html.ActionLink("Detay", "Detail", "Education", new { id = item.Id}, new Dictionary<string, object> { { "class", "btn btn-secondary" }, { "role", "button" } })
+
+                        </p>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

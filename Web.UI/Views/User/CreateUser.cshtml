@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "CreateUser";
+}
+
+@model SCEducationPortal.Business.Commons.Models.UserModels.CreateUserRequest
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h3>Üye Ol</h3>
+
+<hr />
+@*<form asp-action="CreateUser">
+    <table>
+        <tr>
+            <td colspan="3"><div asp-validation-summary="ModelOnly"></div></td>
+        </tr>
+        <tr>
+            <td><label asp-for="UserName"></label></td>
+            <td><input asp-for="UserName" /></td>
+            <td><span asp-validation-for="UserName"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Email"></label></td>
+            <td><input asp-for="Email" /></td>
+            <td><span asp-validation-for="Email"></span></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Sifre"></label></td>
+            <td><input asp-for="Sifre" /></td>
+            <td><span asp-validation-for="Sifre"></span></td>
+        </tr>
+        <tr>
+            <td colspan="3"><input type="submit" value="Üye Ol" /></td>
+        </tr>
+    </table>
+</form>*@
+
+<form asp-action="CreateUser">
+
+    <div class="form-group">
+        <label>Kullanici Adi</label>
+        <input class="form-control" asp-for="UserName" />
+        <span class="form-text text-muted" asp-validation-for="UserName"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Ad</label>
+        <input class="form-control" asp-for="Name" />
+        <span class="form-text text-muted" asp-validation-for="Name"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Soyad</label>
+        <input class="form-control" asp-for="Surname" />
+        <span class="form-text text-muted" asp-validation-for="Surname"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input class="form-control" asp-for="Email" />
+        <span class="form-text text-muted" asp-validation-for="Email"></span>
+    </div>
+    <div class="form-group">
+        <label>Şifre</label>
+        <input class="form-control" asp-for="Sifre" />
+        <span class="form-text text-muted" asp-validation-for="Sifre"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Üye Ol</button>
+</form>
+

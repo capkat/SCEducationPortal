@@ -1,0 +1,99 @@
+﻿
+@model SCEducationPortal.Business.Commons.Models.EducationContentModels.EducationContentResponse
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using SCEducationPortal.Business.Commons.Models.EducationModels
+@using SCEducationPortal.Business.Commons.Models.EducationContentFileModels
+
+@{
+    ViewData["Title"] = "UpdateEducationContent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var educationData = (EducationResponse)ViewBag.EducationResponse;
+
+    var educationContentFile = new EducationContentFileRequest();
+    educationContentFile.EducationContentId = Model.Id;
+
+}
+
+
+<div>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a class="nav-link" id="profile" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                <li class="nav-item"><a class="nav-link active" id="change-password" asp-controller="Profile" asp-action="MyEducationList">Oluşturduğun Eğitimler</a></li>
+                <li class="nav-item"><a class="nav-link" id="two-factor" asp-controller="Profile" asp-action="TrainingsIAttended">Aldığın Eğitimler</a></li>
+                <li class="nav-item"><a class="nav-link" id="email" asp-controller="Profile" asp-action="ChangePassword">Şifre Değiştir</a></li>
+
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-8"> <h3>Eğitim Adı : @educationData.Title</h3></div>
+                <div class="col-md-4"><p style="text-align:right;"><a asp-action="GetEducation" asp-controller="Profile" asp-route-id="@educationData.Id">Geri Dön</a></p></div>
+            </div>
+            <hr />
+            <div class="col-md-12">
+                <b>Açıklama :</b> @educationData.Description <br />
+                <b>Kontenjan :</b> @educationData.Quota <br />
+                <br />
+
+                <h3>Eğitim İçeriği : @Model.Title</h3>
+                <hr />
+                <form asp-action="UpdateEducationContent">
+                    <div class="form-group">
+                        <label>İçerik Adı</label>
+                        <input class="form-control" asp-for="Title" />
+                        <span class="form-text text-muted" asp-validation-for="Title"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>İçerik Detay</label>
+                        <input class="form-control" asp-for="Description" />
+                        <span class="form-text text-muted" asp-validation-for="Description"></span>
+                    </div>
+
+                    @Html.HiddenFor(c => c.Id)
+                    <button type="submit" class="btn btn-primary">Güncelle</button>
+                </form>
+                <br />
+
+                <h3>Dosya Yükle</h3>
+                <hr />
+                @Html.Partial("~/Views/Profile/CreateEducationContentFile.cshtml", educationContentFile)
+                <br />
+
+                <h3>Dosyalar</h3>
+                <hr />
+                <div class="row">
+                    @foreach (var item in Model.EducationContentFiles)
+                    {
+                        if (new[] { "jpg", "png", "jpeg" }.Contains(item.FileExtension))
+                        {
+                            <div class="col-md-3">
+                                <img class="img-thumbnail" src=" @Url.Content("~/"+item.FileName)" />
+                                <br /> Kaldır
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-3">
+                                <video style="width: 100%;" controls muted src="@Url.Content("~/"+item.FileName)"></video>
+                                <br /> Kaldır
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+

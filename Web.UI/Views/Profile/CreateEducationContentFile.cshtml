@@ -1,0 +1,14 @@
+﻿
+@model SCEducationPortal.Business.Commons.Models.EducationContentFileModels.EducationContentFileRequest
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<form asp-action="CreateEducationContentFile" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Dosya</label>
+
+        <input type="file" class="form-control form-control-file" name="file" />
+    </div>
+
+    @Html.HiddenFor(c => c.EducationContentId)
+    <button type="submit" class="btn btn-primary">Dosya Yukle</button>
+</form>

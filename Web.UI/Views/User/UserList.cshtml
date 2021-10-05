@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<SCEducationPortal.Data.Authentication.AppUser>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<h1>Roller</h1>
+
+@*<p>
+    <a asp-action="CreateRole">Create</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Adı</th>
+            <th>Soyadı</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    <a asp-action="RoleAssign" asp-controller="Role" asp-route-id="@item.Id">Yetkilerini Düzenle</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,43 @@
+﻿@model List<SCEducationPortal.Business.Commons.Models.EducationModels.EducationResponse>
+
+@{
+    ViewData["Title"] = "Home Page";
+    var categories = (List<SCEducationPortal.Business.Commons.Models.CategoryModels.CategoryListResponse>)ViewBag.CategoryList;
+}
+
+
+<div class="jumbotron">
+    <div class="container">
+        <h3 class="display-3">Her zaman öğrenecek yeni içerikler bulabilirsiniz</h3>
+        <p>Kendin eğitim oluşturup binlerce kişinin yararlanmasını sağlayabilir veya ihtiyacın olan eğitimi alabilirsin</p>
+        <p>
+            <a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="User" asp-action="Login">Hemen Kaydol</a>
+        </p>
+
+
+    </div>
+</div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Partial("~/Views/Common/CategoryList.cshtml", categories)
+        </div>
+
+        <div class="col-md-9">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-12">
+                        <h2>@item.Title</h2>
+                        <p>@item.Description</p>
+                        <p>@Html.ActionLink("Detay", "Detail", "Education", new { id = item.Id }, new Dictionary<string, object> { { "class", "btn btn-secondary" }, { "role", "button" } })</p>
+                    </div>
+                }
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

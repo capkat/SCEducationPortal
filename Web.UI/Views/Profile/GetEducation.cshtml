@@ -1,0 +1,113 @@
+﻿@model SCEducationPortal.Business.Commons.Models.EducationModels.EducationResponse
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using SCEducationPortal.Business.Commons.Models.EducationContentModels
+
+@{
+    ViewData["Title"] = "GetEducation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categories = (List<SCEducationPortal.Business.Commons.Models.CategoryModels.CategoryListResponse>)ViewBag.CategoryList;
+    var educationContent = new EducationContentRequest();
+    educationContent.EducationId = Model.Id;
+}
+
+
+
+
+@*@if (ViewBag.StatusMessage != null)
+    {
+        <div class="col-md-12">
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @ViewBag.StatusMessage
+            </div>
+            <br />
+        </div>
+
+    }*@
+
+
+<div>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a class="nav-link" id="profile" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                <li class="nav-item"><a class="nav-link active" id="change-password" asp-controller="Profile" asp-action="MyEducationList">Oluşturduğun Eğitimler</a></li>
+                <li class="nav-item"><a class="nav-link" id="two-factor" asp-controller="Profile" asp-action="ChangePassword">Aldığın Eğitimler</a></li>
+                <li class="nav-item"><a class="nav-link" id="email" asp-controller="Profile" asp-action="ChangePassword">Şifre Değiştir</a></li>
+
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-8"> <h3>@Model.Title</h3></div>
+                <div class="col-md-4"><p style="text-align:right;"><a asp-action="MyEducationList" asp-controller="Profile">Geri Dön</a></p></div>
+            </div>
+            <hr />
+            <form asp-action="UpdateEducation">
+                <div class="form-group">
+                    <label>Eğitim Adı</label>
+                    <input class="form-control" asp-for="Title" />
+                    <span class="form-text text-muted" asp-validation-for="Title"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Kategorisi</label>
+                    <select id="drpEmpList" class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(categories, "Id", "Title"))">
+                        <option value="">--Select--</option>
+                    </select>
+                    <span class="form-text text-muted" asp-validation-for="Title"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Eğitim Açıklaması</label>
+                    <input class="form-control" asp-for="Description" />
+                    <span class="form-text text-muted" asp-validation-for="Description"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Eğitim Kontenjanı</label>
+                    <input class="form-control" asp-for="Quota" />
+                    <span class="form-text text-muted" asp-validation-for="Quota"></span>
+                </div>
+
+                @Html.HiddenFor(c => c.Id)
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+            </form>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            @Html.Partial("~/Views/Profile/CreateEducationContent.cshtml", educationContent)
+        </div>
+        <div class="col-md-7">
+            <h2>İçerik Listesi</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Adı</th>
+                        <th scope="col">Oluşturma Tarihi</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.EducationContents)
+                    {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.CreateDate</td>
+                        <td><a asp-action="UpdateEducationContent" asp-controller="Profile" asp-route-id="@item.Id">Detay</a></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+

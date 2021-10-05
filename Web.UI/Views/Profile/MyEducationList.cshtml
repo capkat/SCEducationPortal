@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "MyEducationList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<SCEducationPortal.Business.Commons.Models.EducationModels.EducationResponse>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<div>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item"><a class="nav-link" id="profile" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                <li class="nav-item"><a class="nav-link active" id="change-password" asp-controller="Profile" asp-action="MyEducationList">Oluşturduğun Eğitimler</a></li>
+                <li class="nav-item"><a class="nav-link" id="two-factor" asp-controller="Profile" asp-action="TrainingsIAttended">Aldığın Eğitimler</a></li>
+                <li class="nav-item"><a class="nav-link" id="email" asp-controller="Profile" asp-action="ChangePassword">Şifre Değiştir</a></li>
+
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-8"> <h3>Oluşturduğum Eğitimler</h3></div>
+                <div class="col-md-4">
+                    <p style="text-align:right;"><a asp-action="CreateEducation" asp-controller="Profile">Eğitim Oluştur</a></p>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Adı</th>
+                            <th scope="col">Oluşturma Tarihi</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.CreateDate</td>
+                                <td><a asp-action="GetEducation" asp-controller="Profile" asp-route-id="@item.Id">Detay</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
