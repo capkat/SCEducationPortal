@@ -58,7 +58,7 @@ namespace Web.UI.Controllers
 
             if (result.Succeeded)
             {
-                //Başarılı...
+                return RedirectToAction("Index");
             }
             return View();
         }
